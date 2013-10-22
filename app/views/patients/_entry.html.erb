@@ -1,6 +1,16 @@
 <div>
   <%= entry.description || entry.free_text %>
+  <% if entry.values.present? -%>
+    <% for code_name,code_values in entry.codes %>
+      <%=code_name%>
+      <%=code_values.join(" ")%>
+    <% end -%>
+    <% for value in entry.values %>
+        <%=value.scalar %>
+        <%=value.units %>
+    <% end -%>
+  <% end -%>
   <% if (entry.as_point_in_time.present?) %>
-    <time datetime="<%= display_time(entry.as_point_in_time) %>"><%= display_time(entry.as_point_in_time) %></time>
+    - <time datetime="<%= display_time(entry.as_point_in_time) %>"><%= display_time(entry.as_point_in_time) %></time>
   <% end %>
 </div>
